@@ -1,0 +1,848 @@
+* {
+  box-sizing: border-box;
+  font-family: "Caveat", cursive;
+  /* border: 1px solid rgb(0, 255, 0); */
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  background-color: #0f1f2f;
+}
+
+ul,
+ol {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+}
+
+h1 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  margin-top: 40px;
+  font-size: 40px;
+}
+
+/* span{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+} */
+
+.game {
+  width: 800px;
+  height: auto;
+  margin: 0 auto 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  /* padding-bottom: 25px; */
+}
+
+#game-topic {
+  color: #ffffff;
+  letter-spacing: 5px;
+}
+
+.gamer-tools {
+  margin-bottom: 40px;
+  height: auto;
+}
+
+.letter {
+  text-transform: uppercase;
+  cursor: pointer;
+  height: 36px;
+  width: 36px;
+  border: 1px solid #0ff;
+  border-radius: 30px;
+  font-size: 16px;
+  font-weight: 600;
+  background-color: #b8b8b8;
+  box-shadow: 0 0 5px #4a6d8f, 0 0 10px #384d63, 0 0 20px #0ff;
+}
+
+.letters {
+  height: 80px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.word {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  padding-top: 25px;
+  padding-bottom: 40px;
+}
+
+.word-letter {
+  border-bottom: 2px solid rgb(255, 255, 255);
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  width: 30px;
+  height: 35px;
+  font-size: 40px;
+  line-height: 30px;
+  color: #ffffff;
+}
+
+/* tree: */
+.happy-tree {
+  width: 320px;
+  height: 540px;
+  margin: 0 auto;
+  display: block;
+  padding-top: 100px;
+  /* border: 1px solid cyan; */
+}
+
+.tree-layer,
+.trunk {
+  margin: 0 auto;
+}
+
+.tree-layer {
+  width: 0;
+  height: 0;
+  border-left: 70px solid transparent;
+  border-right: 70px solid transparent;
+  border-bottom: 120px solid green;
+  border-color: transparent transparent #99c671 transparent;
+  z-index: 15;
+}
+
+.tree-layer:nth-child(2) {
+  margin-top: -60px;
+  border-left-width: 100px;
+  border-right-width: 100px;
+  border-bottom-width: 180px;
+  border-color: transparent transparent #68bb47 transparent;
+  z-index: 14;
+}
+
+.tree-layer:nth-child(3) {
+  margin-top: -80px;
+  border-left-width: 120px;
+  border-right-width: 120px;
+  border-bottom-width: 200px;
+  border-color: transparent transparent #42aa47 transparent;
+  z-index: 13;
+}
+
+[class^="tree"] {
+  position: relative;
+  border-radius: 5px;
+}
+
+.trunk {
+  width: 40px;
+  height: 60px;
+  background-color: #996633;
+}
+
+.ground {
+  width: 320px;
+  /* height: 100%; */
+  border-top: 3px solid #996633;
+  /* position: relative; */
+  /* border: 1px solid red; */
+}
+
+/* decorations: */
+.star-container {
+  position: relative;
+  height: 50px;
+  width: 50px;
+  margin-left: 155px;
+  top: -483px;
+  z-index: 16;
+  transform: rotate(35deg);
+}
+
+/* TODO: add some glow for star */
+.star {
+  margin: 50px 0;
+  position: absolute;
+  width: 0px;
+  height: 0px;
+  border-style: solid;
+  border-width: 0 25px 17px 25px;
+  border-color: transparent transparent #ffd105 transparent;
+  animation: 1.5s starPulsar infinite linear;
+}
+
+.star:before {
+  position: absolute;
+  height: 0;
+  width: 0;
+  top: 0px;
+  left: -25px;
+  content: '';
+  border-style: solid;
+  border-width: 0 25px 17px 25px;
+  border-color: transparent transparent #ffd105 transparent;
+  transform: rotate(-70deg);
+}
+
+.star:after {
+  position: absolute;
+  height: 0;
+  width: 0;
+  top: -12px;
+  left: -16px;
+  content: '';
+  border-style: solid;
+  border-width: 0 10px 20px 10px;
+  border-color: transparent transparent #ffd105 transparent;
+  transform: rotate(-35deg);
+}
+
+@keyframes starPulsar {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.3);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* garland: */
+[class^="small-light"] {
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  border-radius: 100%;
+  transition-property: background;
+  transition-duration: 1s;
+  transition-timing-function: linear;
+  animation: smallLights 5s infinite;
+  z-index: 6;
+}
+
+@keyframes smallLights {
+  0% {
+    background: transparent;
+  }
+
+  50% {
+    background: #ffd105;
+  }
+
+  100% {
+    background: transparent;
+  }
+}
+
+.small-lights {
+  position: relative;
+  top: -435px;
+  left: 147px;
+  z-index: 17;
+  border: 1 px solid lime;
+}
+
+.small-light1 {
+  top: 66px;
+  left: -50px;
+}
+
+.small-light2 {
+  top: 17px;
+  left: 30px;
+  animation-delay: 3s;
+}
+
+.small-light3 {
+  top: 79px;
+  left: -7px;
+  animation-delay: 2s;
+}
+
+.small-light4 {
+  top: 100px;
+  left: 38px;
+  animation-delay: 1s;
+}
+
+.small-light5 {
+  top: 127px;
+  left: 4px;
+  ;
+  animation-delay: 3s;
+}
+
+.small-light6 {
+  top: 165px;
+  left: -69px;
+  animation-delay: 2s;
+}
+
+.small-light7 {
+  top: 182px;
+  left: -44px;
+  animation-delay: 1s;
+}
+
+.small-light8 {
+  top: 199px;
+  left: 26px;
+  animation-delay: 3s;
+}
+
+.small-light9 {
+  top: 225px;
+  left: 72px;
+  animation-delay: 2s;
+}
+
+.small-light10 {
+  top: 230px;
+  left: -1px;
+  animation-delay: 1s;
+}
+
+.small-light11 {
+  top: 258px;
+  left: -62px;
+  animation-delay: 2s;
+}
+
+.small-light12 {
+  top: 263px;
+  left: 44px;
+  animation-delay: 3s;
+}
+
+.small-light13 {
+  top: 286px;
+  left: 16px;
+  animation-delay: 2s;
+}
+
+.small-light14 {
+  top: 287px;
+  left: -45px;
+  animation-delay: 1s;
+}
+
+.small-light15 {
+  top: 93px;
+  left: 15px;
+  animation-delay: 3s;
+}
+
+.small-light16 {
+  top: 153px;
+  left: -29px;
+  animation-delay: 2s;
+}
+
+.small-light17 {
+  top: 190px;
+  left: -24px;
+  animation-delay: 1s;
+}
+
+.small-light18 {
+  top: 251px;
+  left: 56px;
+  animation-delay: 3s;
+}
+
+.small-light19 {
+  top: 318px;
+  left: -13px;
+  animation-delay: 3s;
+}
+
+.small-light20 {
+  top: 311px;
+  left: -64px;
+  animation-delay: 3s;
+}
+
+/* balls to be added: */
+.balls {
+  border: 1px solid red;
+}
+
+#ball1 {
+  display: none;
+}
+
+#ball2 {
+  display: none;
+}
+
+#ball3 {
+  display: none;
+}
+
+#ball4 {
+  display: none;
+}
+
+#ball5 {
+  display: none;
+}
+
+#ball6 {
+  display: none;
+}
+
+#mBall1 {
+  display: none;
+}
+
+#mBall2 {
+  display: none;
+}
+
+#mBall3 {
+  display: none;
+}
+
+#mBall4 {
+  display: none;
+}
+
+#mBall5 {
+  display: none;
+}
+
+#mBall6 {
+  display: none;
+}
+
+.ornament {
+  display: block;
+  position: relative;
+  background: radial-gradient(#ffffff, #ffff99, #ffcc33);
+  width: 32px;
+  height: 32px;
+  border-radius: 100%;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.ornament:before {
+  position: absolute;
+  content: '';
+  width: 20px;
+  height: 20px;
+  top: 0px;
+  left: 0px;
+  background: #fff;
+  border-radius: 100%;
+}
+
+.ornament:after {
+  position: absolute;
+  content: '';
+  width: 42px;
+  height: 42px;
+  top: -20px;
+  left: -10px;
+  border: solid 5px #ffcc33;
+  border-radius: 100%;
+}
+
+[class^="ornament-container"] {
+  position: relative;
+  z-index: 17;
+}
+
+.ornament-container1 {
+  top: -400px;
+  left: 160px;
+}
+
+.ornament-container2 {
+  top: -378px;
+  left: 110px;
+}
+
+.ornament-container3 {
+  top: -356px;
+  left: 186px;
+}
+
+.ornament-container4 {
+  top: -329px;
+  left: 102px;
+}
+
+.ornament-container5 {
+  top: -290px;
+  left: 118px;
+}
+
+.ornament-container6 {
+  top: -320px;
+  left: 217px;
+}
+
+.mediumBalls {
+  border: 1px solid red;
+}
+
+.mediumBall {
+  position: relative;
+  background: radial-gradient(#ffffff, #ffb699, #ff5c33);
+  width: 22px;
+  height: 22px;
+  border-radius: 100%;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.mediumBall:before {
+  position: absolute;
+  content: '';
+  width: 10px;
+  height: 10px;
+  top: 0px;
+  left: 0px;
+  background: #fff;
+  border-radius: 100%;
+}
+
+.mediumBall:after {
+  position: absolute;
+  content: '';
+  width: 32px;
+  height: 32px;
+  top: -20px;
+  left: -10px;
+  border: solid 5px #ffcc33;
+  border-radius: 100%;
+}
+
+[class^="mediumBall-container"] {
+  position: relative;
+  z-index: 17;
+}
+
+.mediumBall-container1 {
+  top: -618px;
+  left: 122px;
+}
+
+.mediumBall-container2 {
+  top: -537px;
+  left: 165px;
+}
+
+.mediumBall-container3 {
+  top: -496px;
+  left: 137px;
+}
+
+.mediumBall-container4 {
+  top: -488px;
+  left: 193px;
+}
+
+.mediumBall-container5 {
+  top: -435px;
+  left: 52px;
+}
+
+.mediumBall-container6 {
+  top: -491px;
+  left: 174px;
+}
+
+/* small garlands of lights and/or stars: */
+[class^="light"] {
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  border-radius: 100%;
+  transition-property: background;
+  transition-duration: 1s;
+  transition-timing-function: linear;
+  animation: light 5s infinite;
+  z-index: 1;
+  /* border: 1px solid lime; */
+}
+
+@keyframes light {
+  0% {
+    background: transparent;
+  }
+
+  50% {
+    background: #ffffff;
+  }
+
+  100% {
+    background: transparent;
+  }
+}
+
+@keyframes moonLight {
+  0% {
+    background: #8da4ad;
+  }
+
+  50% {
+    background: #d4d8da;
+  }
+
+  100% {
+    background: #a2a9ac;
+  }
+}
+
+.star-lights1 {
+  position: absolute;
+  top: -50px;
+  left: -15px;
+  z-index: 6;
+}
+
+.star-lights2 {
+  position: absolute;
+  top: 136px;
+  left: 325px;
+  z-index: 6;
+}
+
+.star-lights3 {
+  position: absolute;
+  top: 136px;
+  left: 1192px;
+  z-index: 6;
+}
+
+.star-lights4 {
+  position: absolute;
+  top: -74px;
+  left: 1492px;
+  z-index: 6;
+}
+
+/* The Moon:*/
+.light0 {
+  top: 176px;
+  left: 119px;
+  width: 50px;
+  height: 50px;
+  animation: moonLight 25s infinite;
+  /* Белое свечение:*/
+  box-shadow: 0 0 5px #4a6d8f, 0 0 10px #384d63, 0 0 20px #0ff;
+}
+
+.light1 {
+  top: 90px;
+  left: 180px;
+}
+
+.light2 {
+  top: 130px;
+  left: 386px;
+  animation-delay: 3s;
+}
+
+.light3 {
+  top: 200px;
+  left: 56px;
+  animation-delay: 2s;
+}
+
+.light4 {
+  top: 70px;
+  left: 445px;
+  animation-delay: 1s;
+}
+
+.light5 {
+  top: 135px;
+  left: 35px;
+  animation-delay: 3s;
+}
+
+.light6 {
+  top: 240px;
+  left: 400px;
+  animation-delay: 2s;
+}
+
+.light7 {
+  top: 176px;
+  left: 363px;
+  animation-delay: 1s;
+}
+
+.light8 {
+  top: 260px;
+  left: 280px;
+  animation-delay: 3s;
+}
+
+.light9 {
+  top: 428px;
+  left: 200px;
+  animation-delay: 2s;
+}
+
+.light10 {
+  top: 160px;
+  left: 255px;
+  animation-delay: 1s;
+}
+
+.light11 {
+  top: 442px;
+  left: 56px;
+  animation-delay: 2s;
+}
+
+.light12 {
+  top: 400px;
+  left: 330px;
+  animation-delay: 3s;
+}
+
+.light13 {
+  top: 370px;
+  left: 120px;
+  animation-delay: 2s;
+}
+
+.light14 {
+  top: 290px;
+  left: 220px;
+  animation-delay: 1s;
+}
+
+.light15 {
+  top: 320px;
+  left: 150px;
+  animation-delay: 3s;
+}
+
+.light16 {
+  top: 370px;
+  left: 200px;
+  animation-delay: 2s;
+}
+
+.light17 {
+  top: 290px;
+  left: 220px;
+  animation-delay: 1s;
+}
+
+.light18 {
+  top: 320px;
+  left: 260px;
+  animation-delay: 3s;
+}
+
+.light19 {
+  top: 370px;
+  left: 300px;
+  animation-delay: 3s;
+}
+
+.light20 {
+  top: 350px;
+  left: 250px;
+  animation-delay: 3s;
+}
+
+
+.game-over {
+  font-size: 40px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 9;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  text-transform: uppercase;
+}
+
+.game-over.active {
+  display: flex;
+}
+
+.grey-letter {
+  background-color: rgb(77, 77, 77);
+}
+
+.green-success {
+  background-color: rgba(72, 190, 88, 0.7);
+  color: rgb(6, 90, 6);
+  z-index: 18;
+  font-weight: 800;
+  text-shadow: 0 0 10px #00ff0d;
+}
+
+.red-fail {
+  background-color: rgb(190, 72, 72, 0.7);
+  color: red;
+  z-index: 18;
+  font-weight: 800;
+  text-shadow: 0 0 10px #ff0000;
+
+}
+
+
+.new-game button {
+  display: none;
+  position: absolute;
+  top: 769px;
+  left: 1290px;
+  width: 60px;
+  height: 60px;
+  border-radius: 60px;
+  animation: newGame 25s infinite;
+  color: white;
+  background-color: #0f1f2f;
+  border: none;
+  font-size: 16px;
+  z-index: 18;
+  box-shadow: 0 0 5px #4a6d8f, 0 0 10px #384d63, 0 0 20px #0ff;
+}
+
+@keyframes newGame {
+  0% {
+    background: #173757;
+  }
+
+  50% {
+    background: #0f1f2f;
+  }
+
+  100% {
+    background: #12385f;
+  }
+}
