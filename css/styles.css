@@ -1,7 +1,6 @@
 * {
   box-sizing: border-box;
   font-family: "Caveat", cursive;
-  /* border: 1px solid rgb(0, 255, 0); */
 }
 
 html,
@@ -34,13 +33,6 @@ h1 {
   font-size: 40px;
 }
 
-/* span{
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-} */
-
 .game {
   width: 800px;
   height: auto;
@@ -48,7 +40,6 @@ h1 {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  /* padding-bottom: 25px; */
 }
 
 #game-topic {
@@ -110,7 +101,6 @@ h1 {
   margin: 0 auto;
   display: block;
   padding-top: 100px;
-  /* border: 1px solid cyan; */
 }
 
 .tree-layer,
@@ -159,10 +149,7 @@ h1 {
 
 .ground {
   width: 320px;
-  /* height: 100%; */
   border-top: 3px solid #996633;
-  /* position: relative; */
-  /* border: 1px solid red; */
 }
 
 /* decorations: */
@@ -586,7 +573,6 @@ h1 {
   transition-timing-function: linear;
   animation: light 5s infinite;
   z-index: 1;
-  /* border: 1px solid lime; */
 }
 
 @keyframes light {
@@ -619,29 +605,29 @@ h1 {
 
 .star-lights1 {
   position: absolute;
-  top: -50px;
-  left: -15px;
+  top: -36px;
+  left: -5px;
   z-index: 6;
 }
 
 .star-lights2 {
   position: absolute;
-  top: 136px;
-  left: 325px;
+  top: 175px;
+  left: 322px;
   z-index: 6;
 }
 
 .star-lights3 {
   position: absolute;
-  top: 136px;
-  left: 1192px;
+  top: 160px;
+  left: 1167px;
   z-index: 6;
 }
 
 .star-lights4 {
   position: absolute;
-  top: -74px;
-  left: 1492px;
+  top: -45px;
+  left: 1488px;
   z-index: 6;
 }
 
@@ -775,11 +761,10 @@ h1 {
   animation-delay: 3s;
 }
 
-
 .game-over {
   font-size: 40px;
   position: fixed;
-  top: 0;
+  top: -300px;
   left: 0;
   width: 100%;
   height: 100%;
@@ -799,15 +784,15 @@ h1 {
 }
 
 .green-success {
-  background-color: rgba(72, 190, 88, 0.7);
-  color: rgb(6, 90, 6);
+  background-color: rgba(72, 190, 88, 0);
+  color: rgb(0, 255, 0);
   z-index: 18;
   font-weight: 800;
-  text-shadow: 0 0 10px #00ff0d;
+  text-shadow: 0 0 20px #00ff0d;
 }
 
 .red-fail {
-  background-color: rgb(190, 72, 72, 0.7);
+  background-color: rgb(190, 72, 72, 0);
   color: red;
   z-index: 18;
   font-weight: 800;
@@ -815,12 +800,11 @@ h1 {
 
 }
 
-
 .new-game button {
   display: none;
   position: absolute;
   top: 769px;
-  left: 1290px;
+  left: 1530px;
   width: 60px;
   height: 60px;
   border-radius: 60px;

@@ -1,37 +1,24 @@
 let state = {
     currentQuest: null,
-    answerLetters: [],
+    wordLetters: [],
     questIndex: null,
-    errorScore: 0,
-    successScore: 0,
-    totalErrorScore: 0,
-    totalSuccessScore: 0,
+    wrongLetters: 0,
+    foundLetters: 0,
     selectedLetters: []
 }
 
 let statistics = {
+    nextQuests: [],
     totalSuccessScore: 0,
     totalErrorScore: 0,
 }
 
-let currentWord = null;
-let wordLetters = [];
-let selectedLetters = [];
-let errorScore = 0;
-let successScore = 0;
-let totalSuccessScore = 12;
+const triesLimit = 12;
 
 //const alphabet = 'АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ';
 const alphabet = 'абвгдеёжзийклмнопрстуфхцчшщъыьэюя';
-// const topics = ["Города", "Транспорт", "Спорт"];
 
-// const words = {
-//     "Города": ["минск", "москва", "париж", "рим"],
-//     "Транспорт": ["автомобиль", "самолет", "телега", "трамвай"],
-//     "Спорт": ["футбол", "шахматы", "теннис", "бокс"]
-// }
-// const topics = ["Кто напарник Деда Мороза?", "Как иначе называют Деда Мороза в рассказах?", "Большой белый друг каждого двора?", "Что надевают на голову снеговику вместо шапки?", "С крыши капает, на лоб падает?", "Лучший друг Деда Мороза и Снегурочки?", "Что в Новогоднюю ночь повсюду взрывается ярким разными красками?", "Украшение на «голове» красавицы-ёлки часто выглядит как...", "Украшает зимой окно в морозные дни...", "Что пишут дети, чтобы рассказать о своих желаниях Деду Морозу?", "Какой самый популярный зимний транспорт для детей?", "Сколько раз куранты ударяют в новогоднюю ночь?", "После Нового года празднуют...", "Кто играл роль Деда Мороза в мультике «Ну погоди!»?", "Что традиционно держит в руках Дед Мороз?", "Какой месяц зимний по древнерусскому был снеговиком?", "Вместо носа у снеговика часто бывает...", "Самое популярное холодное сладкое угощение?", "Запах какого фрукта ассоциируется с Новым годом?", "Из-за чего люди зимой на улице часто падают?", "Что находится внутри новогодней хлопушки?", "Что зимой звезда, а весной – вода?", "На счёт три на новогодней ёлке загорается...", "Какой месяц зимы – месяц ветров?", "Место для рассказывания стихов Деду Морозу?"];
-
+// TODO: auto test for check letters
 const answers = [
     "снегурочка",
     "морозко",
@@ -94,7 +81,7 @@ const gameElements = {
     topic: document.getElementById("game-topic"),
     word: document.querySelector(".word"),
     letters: document.querySelector(".letters"),
-    hungman: [
+    decoration: [
         document.getElementById("ball1"),
         document.getElementById("ball2"),
         document.getElementById("ball3"),
@@ -112,19 +99,14 @@ const gameElements = {
 
 async function clearGameState(result) {
     state = {
-        currentWord: null,
+        currentQuest: null,
         wordLetters: [],
         topicIndex: null,
         questIndex: null,
-        errorScore: 0,
-        successScore: 0,
+        wrongLetters: 0,
+        foundLetters: 0,
         selectedLetters: []
     }
-    currentWord = null;
-    wordLetters = [];
-    selectedLetters = [];
-    errorScore = 0;
-    successScore = 0;
 
     if(result) {
         statistics.totalSuccessScore += 1;
@@ -149,7 +131,7 @@ async function loadGameState() {
         state = loadState.state;
     }
 
-    if (loadState && loadState.state && loadState.state.statistics !== null) {
+    if (loadState && loadState.statistics && loadState.statistics.totalSuccessScore !== 0) {
         statistics = loadState.statistics;
     }
 }
@@ -157,42 +139,41 @@ async function loadGameState() {
 async function init() {
     await loadGameState();
     console.log({ state });
-    console.log({ currentWord, selectedLetters });
 
-    // let topicIndex = rand(0, topics.length - 1);
-    // let topicIndex = state.topicIndex !== null ? state.topicIndex : rand(0, topics.length - 1);
-    // let wordsSet = words[topics[topicIndex]];
-    // let questIndex = rand(0, wordsSet.length - 1);
-    let questIndex = state.questIndex !== null ? state.questIndex : rand(0, questions.length - 1);
+    // get questions one by one from the very first one, without repeats and randoms:
+    statistics.nextQuests = statistics.nextQuests.length > 0 ? statistics.nextQuests : Array.from(answers);
+    let nextQuest = statistics.nextQuests.shift();
+    let questIndex = answers.indexOf(nextQuest);
 
-    selectedLetters = state.selectedLetters !== null ? state.selectedLetters : [];
+    console.log({ compare: true, nextQuest, nextQuest2: answers[0] });
 
-    // TODO: add totalErrorScore & totalSuccessScore fields:
-    //totalErrorScore = state.totalErrorScore > 0 ? state.totalErrorScore : 0;
-    //totalSuccessScore = state.totalSuccessScore > 0 ? state.totalSuccessScore : 0;
+    console.log({ questIndex, nextQuest, nextQuests: statistics.nextQuests });
 
+    state.selectedLetters = state.selectedLetters !== null ? state.selectedLetters : [];
     state.questIndex = questIndex;
-    saveGameState();
+    state.currentQuest = answers[questIndex];
 
-    currentWord = answers[questIndex];
-    // currentWord = 'молоко';
+    saveGameState();
 
     console.log({ state, len: questions.length });
 
     gameElements.topic.innerText = questions[questIndex];
+   
 
     for (let i = 0; i < statistics.totalSuccessScore; i++) {    
-        showHungmanPart.next();
+        showDecorationPart.next();
     }
 
-    
-    const totalBalls = gameElements.hungman.length;
+    const totalBalls = gameElements.decoration.length;
 
     // check if the game is finished
     if (statistics.totalSuccessScore >= totalBalls) {
+        // TODO: make animation for greeting text:
         gameElements.topic.innerText = "Happy New Year 2026!";
+        gameElements.topic.classList.add("greeting");
         const newGameBtn = document.getElementById("newGameBtn");
         newGameBtn.style.display = 'block';
+        
 
         newGameBtn.onclick = async () => {
             statistics.totalErrorScore = 0;
@@ -205,17 +186,17 @@ async function init() {
         return;
     }
 
-    for (let i = 0; i < currentWord.length; i++) {
+    for (let i = 0; i < state.currentQuest.length; i++) {
         let span = document.createElement("span");
         span.classList.add("word-letter");
 
         gameElements.word.append(span);
 
         let wordLetter = {
-            letter: currentWord[i],
+            letter: state.currentQuest[i],
             element: span
         }
-        wordLetters.push(wordLetter);
+        state.wordLetters.push(wordLetter);
     }
 
     for (let i = 0; i < alphabet.length; i++) {
@@ -224,7 +205,7 @@ async function init() {
         button.classList.add("letter");
         button.innerText = alphabet[i];
 
-        if (selectedLetters.indexOf(alphabet[i]) !== -1) {
+        if (state.selectedLetters.indexOf(alphabet[i]) !== -1) {
             button.classList.add('grey-letter');
             button.disabled = true;
             await checkLetter(alphabet[i], true);
@@ -242,13 +223,18 @@ async function init() {
     }
 
     document.addEventListener('keydown', async function (event) {
-        console.log(event.code);
+        console.log({ keyCode: event.code});
         if (event.code == 'KeyZ' && (event.ctrlKey || event.metaKey)) {
             alert('Отменить!')
         }
         let pressedLetter;
 
         switch (event.code) {
+
+            case 'Backquote':
+                pressedLetter = 'ё';
+                break;
+
             case 'KeyQ':
                 pressedLetter = 'й';
                 break;
@@ -279,15 +265,12 @@ async function init() {
             case 'KeyP':
                 pressedLetter = 'з';
                 break;
-
-            case 'Key{':
+            case 'BracketLeft':
                 pressedLetter = 'х';
                 break;
-            case 'Key}':
+            case 'BracketRight':
                 pressedLetter = 'ъ';
                 break;
-
-
             case 'KeyA':
                 pressedLetter = 'ф';
                 break;
@@ -316,12 +299,15 @@ async function init() {
                 pressedLetter = 'д';
                 break;
 
-            case 'Key:':
+            case 'Semicolon':
                 pressedLetter = 'ж';
                 break;
-            case 'Key"':
+
+            // TODO: fix when pressed Э on ENG - switch the search on the page:    
+            case 'Quote':
                 pressedLetter = 'э';
                 break;
+
             case 'KeyZ':
                 pressedLetter = 'я';
                 break;
@@ -349,10 +335,6 @@ async function init() {
             case 'Period':
                 pressedLetter = 'ю';
                 break;
-
-            // case 'Key?': 
-            //     pressedLetter = '/';
-            //     break;
         }
 
         if (!pressedLetter) {
@@ -361,8 +343,7 @@ async function init() {
 
         await checkLetter(pressedLetter);
 
-        // make selected btn grey
-        // TODO: make it colored because it is the new year atmos...
+        // TODO: make selected btn colored because it is the new year atmos...
         const btnId = 'key' + alphabet.indexOf(pressedLetter);
         const button = document.getElementById(btnId);
         button.classList.add('grey-letter');
@@ -370,54 +351,52 @@ async function init() {
     });
 }
 
-function* showHungmanPartGenerator() {
-    for (let i = 0; i < gameElements.hungman.length; i++) {
-        gameElements.hungman[i].style.display = 'block';
+function* showDecorationPartGenerator() {
+    for (let i = 0; i < gameElements.decoration.length; i++) {
+        gameElements.decoration[i].style.display = 'block';
         yield;
     }
 }
 
-let showHungmanPart = showHungmanPartGenerator();
+let showDecorationPart = showDecorationPartGenerator();
 
 async function checkLetter(letter, init = false) {
     console.log(letter);
     let pos = 0;
-    let indexes = []; //false
+    let found = []; //false
 
     while (true) {
-        let foundPos = currentWord.indexOf(letter, pos);
+        let foundPos = state.currentQuest.indexOf(letter, pos);
 
         if (foundPos == -1) {
             break;
         }
-        indexes.push(foundPos);
+        found.push(foundPos);
         pos = foundPos + 1;
     }
 
-    console.log({ indexes });
+    console.log({ indexes: found });
+
+    if (state.selectedLetters.indexOf(letter) === -1) {
+        if (found.length > 0) {
+            for (let index of found) {
+                state.wordLetters[index].element.innerText = state.wordLetters[index].letter;
+                state.foundLetters++;
+            }
+        } else {
+            state.wrongLetters++; 
+        }
+    }
 
     if (!init) {
-        selectedLetters.push(letter);
+        state.selectedLetters.push(letter);
         await saveGameState();
     }
 
-    if (indexes.length > 0) {
-
-        for (let index of indexes) {
-            wordLetters[index].element.innerText = wordLetters[index].letter;
-            successScore++;
-        }
-
-        if (successScore == currentWord.length) {
-            gameOver(true);
-        }
-
-    } else {
-        errorScore++;
-
-        if (errorScore >= gameElements.hungman.length) {
-            gameOver(false);
-        }
+    if (state.foundLetters == state.currentQuest.length) {
+        gameOver(true);
+    } else if (state.wrongLetters >= triesLimit) {
+        gameOver(false);
     }
 }
 
@@ -430,7 +409,7 @@ function gameOver(result) {
         gameOverElement.classList.add('green-success');
         clearGameState(result);
     } else {
-        gameOverElement.innerText = 'Nice try bro/sis!! ;-)';
+        gameOverElement.innerText = 'Попробуй ответить на другой вопрос';
         gameOverElement.classList.add('red-fail');
         clearGameState(result);
     }
@@ -448,3 +427,38 @@ function rand(min, max) {
 }
 
 init();
+
+function delay(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+async function autoTest(run) {
+    const totalBalls = gameElements.decoration.length;
+    if (run) {
+        if (statistics.totalSuccessScore >= totalBalls) {
+            return;
+        }
+        
+        await delay(5000);
+        console.log({ run, state, statistics });
+        if (!state.currentQuest) {
+            console.log({ wait: 3, state, statistics });
+            await delay(3000);
+        }
+
+        let loadState = state;
+
+        for (let i = 0 ; i <= loadState.currentQuest.length ; i++) {
+            const letter = loadState.currentQuest[i];
+            console.log({ letter });
+            try {
+                await checkLetter(letter);
+            } catch(e) {
+                console.log({ error: e })
+            }
+            await delay(1000);
+        }
+    } 
+}
+
+autoTest(false);
