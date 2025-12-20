@@ -116,6 +116,8 @@ h1 {
   border-bottom: 120px solid green;
   border-color: transparent transparent #99c671 transparent;
   z-index: 15;
+  /* tree glow: */
+  filter: drop-shadow(0 0 45px #99c671);
 }
 
 .tree-layer:nth-child(2) {
@@ -125,6 +127,8 @@ h1 {
   border-bottom-width: 180px;
   border-color: transparent transparent #68bb47 transparent;
   z-index: 14;
+  /* tree glow: */
+  filter: drop-shadow(0 0 45px #68bb47);
 }
 
 .tree-layer:nth-child(3) {
@@ -134,6 +138,8 @@ h1 {
   border-bottom-width: 200px;
   border-color: transparent transparent #42aa47 transparent;
   z-index: 13;
+  /* tree glow: */
+  filter: drop-shadow(0 0 45px #42aa47);
 }
 
 [class^="tree"] {
@@ -163,7 +169,6 @@ h1 {
   transform: rotate(35deg);
 }
 
-/* TODO: add some glow for star */
 .star {
   margin: 50px 0;
   position: absolute;
@@ -173,6 +178,8 @@ h1 {
   border-width: 0 25px 17px 25px;
   border-color: transparent transparent #ffd105 transparent;
   animation: 1.5s starPulsar infinite linear;
+  /* star glow: */
+  filter: drop-shadow(0 0 25px #ffd105);
 }
 
 .star:before {
@@ -226,6 +233,7 @@ h1 {
   transition-timing-function: linear;
   animation: smallLights 5s infinite;
   z-index: 6;
+   filter: drop-shadow(0 0 5px rgb(255, 208, 1));
 }
 
 @keyframes smallLights {
@@ -247,7 +255,6 @@ h1 {
   top: -435px;
   left: 147px;
   z-index: 17;
-  border: 1 px solid lime;
 }
 
 .small-light1 {
@@ -371,62 +378,75 @@ h1 {
 }
 
 /* balls to be added: */
-.balls {
+/* .balls {
   border: 1px solid red;
-}
+} */
 
 #ball1 {
   display: none;
+  /* ball glow: */
+  filter: drop-shadow(0 0 5px #ffc402);
 }
 
 #ball2 {
   display: none;
+  filter: drop-shadow(0 0 5px #ff6600);
 }
 
 #ball3 {
   display: none;
+  filter: drop-shadow(0 0 5px #ff6600);
 }
 
 #ball4 {
   display: none;
+  filter: drop-shadow(0 0 5px #ffc402);
 }
 
 #ball5 {
   display: none;
+  filter: drop-shadow(0 0 5px #ff6600);
 }
 
 #ball6 {
   display: none;
+  filter: drop-shadow(0 0 5px #ffc402);
 }
 
 #mBall1 {
   display: none;
+  filter: drop-shadow(0 0 5px #f7002a);
 }
 
 #mBall2 {
   display: none;
+  filter: drop-shadow(0 0 5px #fa017d);
 }
 
 #mBall3 {
   display: none;
+  filter: drop-shadow(0 0 5px #f7002a);
 }
 
 #mBall4 {
   display: none;
+  filter: drop-shadow(0 0 5px #fa017d);
 }
 
 #mBall5 {
   display: none;
+  filter: drop-shadow(0 0 5px #fa017d);
 }
 
 #mBall6 {
   display: none;
+  filter: drop-shadow(0 0 5px #f7002a);
 }
 
 .ornament {
   display: block;
   position: relative;
-  background: radial-gradient(#ffffff, #ffff99, #ffcc33);
+  background: radial-gradient(#ffd04f, #fda41f, #ff7402);
   width: 32px;
   height: 32px;
   border-radius: 100%;
@@ -497,7 +517,7 @@ h1 {
 
 .mediumBall {
   position: relative;
-  background: radial-gradient(#ffffff, #ffb699, #ff5c33);
+  background: radial-gradient(#bd5c6c, #c2023b, #b42549);
   width: 22px;
   height: 22px;
   border-radius: 100%;
@@ -523,7 +543,7 @@ h1 {
   height: 32px;
   top: -20px;
   left: -10px;
-  border: solid 5px #ffcc33;
+  border: solid 5px #fd0022;
   border-radius: 100%;
 }
 
@@ -562,7 +582,7 @@ h1 {
   left: 174px;
 }
 
-/* small garlands of lights and/or stars: */
+/* stars and The Moon: */
 [class^="light"] {
   position: absolute;
   width: 5px;
@@ -633,8 +653,8 @@ h1 {
 
 /* The Moon:*/
 .light0 {
-  top: 176px;
-  left: 119px;
+  top: 137px;
+  left: 306px;
   width: 50px;
   height: 50px;
   animation: moonLight 25s infinite;
@@ -645,120 +665,140 @@ h1 {
 .light1 {
   top: 90px;
   left: 180px;
+  filter: drop-shadow(0 0 5px #0ff);
 }
 
 .light2 {
   top: 130px;
   left: 386px;
   animation-delay: 3s;
+  filter: drop-shadow(0 0 5px #0ff);
 }
 
 .light3 {
   top: 200px;
   left: 56px;
   animation-delay: 2s;
+  filter: drop-shadow(0 0 5px #0ff);
 }
 
 .light4 {
   top: 70px;
   left: 445px;
   animation-delay: 1s;
+  filter: drop-shadow(0 0 5px #0ff);
 }
 
 .light5 {
   top: 135px;
   left: 35px;
   animation-delay: 3s;
+  filter: drop-shadow(0 0 5px #0ff);
 }
 
 .light6 {
   top: 240px;
   left: 400px;
   animation-delay: 2s;
+  filter: drop-shadow(0 0 5px #0ff);
 }
 
 .light7 {
   top: 176px;
   left: 363px;
   animation-delay: 1s;
+  filter: drop-shadow(0 0 5px #0ff);
 }
 
 .light8 {
   top: 260px;
   left: 280px;
   animation-delay: 3s;
+  filter: drop-shadow(0 0 5px #0ff);
 }
 
 .light9 {
   top: 428px;
   left: 200px;
   animation-delay: 2s;
+  filter: drop-shadow(0 0 5px #0ff);
 }
 
 .light10 {
   top: 160px;
   left: 255px;
   animation-delay: 1s;
+  filter: drop-shadow(0 0 5px #0ff);
 }
 
 .light11 {
   top: 442px;
   left: 56px;
   animation-delay: 2s;
+  filter: drop-shadow(0 0 5px #0ff);
 }
 
 .light12 {
   top: 400px;
   left: 330px;
   animation-delay: 3s;
+  filter: drop-shadow(0 0 5px #0ff);
 }
 
 .light13 {
   top: 370px;
   left: 120px;
   animation-delay: 2s;
+  filter: drop-shadow(0 0 5px #0ff);
 }
 
 .light14 {
   top: 290px;
   left: 220px;
   animation-delay: 1s;
+  filter: drop-shadow(0 0 5px #0ff);
 }
 
 .light15 {
   top: 320px;
   left: 150px;
   animation-delay: 3s;
+  filter: drop-shadow(0 0 5px #0ff);
 }
 
 .light16 {
   top: 370px;
   left: 200px;
   animation-delay: 2s;
+  filter: drop-shadow(0 0 5px #0ff);
 }
 
 .light17 {
   top: 290px;
   left: 220px;
   animation-delay: 1s;
+  filter: drop-shadow(0 0 5px #0ff);
 }
 
 .light18 {
   top: 320px;
   left: 260px;
   animation-delay: 3s;
+  filter: drop-shadow(0 0 5px #0ff);
 }
 
 .light19 {
   top: 370px;
   left: 300px;
   animation-delay: 3s;
+  filter: drop-shadow(0 0 5px #0ff);
 }
 
 .light20 {
   top: 350px;
   left: 250px;
   animation-delay: 3s;
+  filter: drop-shadow(0 0 5px #0ff);
 }
 
 .game-over {
@@ -779,32 +819,36 @@ h1 {
   display: flex;
 }
 
-.grey-letter {
-  background-color: rgb(77, 77, 77);
+.frozen-symbols {
+  /* background-color: rgb(77, 77, 77); */
+
+  /* frozen symbols: */
+  color:rgb(255, 255, 255);
+  /* fades from one color in the center to another color at the edges: */
+  background: radial-gradient(circle at center, rgb(255, 255, 255), rgb(0, 247, 255));
 }
 
 .green-success {
   background-color: rgba(72, 190, 88, 0);
-  color: rgb(0, 255, 0);
+  color: #a7ee57;
   z-index: 18;
   font-weight: 800;
-  text-shadow: 0 0 20px #00ff0d;
+  text-shadow: 0 0 20px #a7ee57;
 }
 
 .red-fail {
   background-color: rgb(190, 72, 72, 0);
-  color: red;
+  color: #ff5b5b;
   z-index: 18;
   font-weight: 800;
-  text-shadow: 0 0 10px #ff0000;
-
+  text-shadow: 0 0 10px #ff5b5b;
 }
 
 .new-game button {
   display: none;
   position: absolute;
   top: 769px;
-  left: 1530px;
+  left: 1600px;
   width: 60px;
   height: 60px;
   border-radius: 60px;
@@ -828,5 +872,134 @@ h1 {
 
   100% {
     background: #12385f;
+  }
+}
+
+#greeting span.space {
+  width: 0.4em;
+}
+
+#greeting span.text:nth-child(1) {
+  animation-delay: 0s
+}
+
+#greeting span.text:nth-child(2) {
+  animation-delay: 0.1s
+}
+
+#greeting span.text:nth-child(3) {
+  animation-delay: 0.2s
+}
+
+#greeting span.text:nth-child(4) {
+  animation-delay: 0.3s
+}
+
+#greeting span.text:nth-child(5) {
+  animation-delay: 0.4s
+}
+
+#greeting span.text:nth-child(6) {
+  animation-delay: 0.5s
+}
+
+#greeting span.text:nth-child(7) {
+  animation-delay: 0.6s
+}
+
+#greeting span.text:nth-child(8) {
+  animation-delay: 0.7s
+}
+
+#greeting span.text:nth-child(9) {
+  animation-delay: 0.8s
+}
+
+#greeting span.text:nth-child(10) {
+  animation-delay: 0.9s
+}
+
+#greeting span.text:nth-child(11) {
+  animation-delay: 1s
+}
+
+#greeting span.text:nth-child(12) {
+  animation-delay: 1.1s
+}
+
+#greeting span.text:nth-child(13) {
+  animation-delay: 1.2s
+}
+
+#greeting span.text:nth-child(14) {
+  animation-delay: 1.3s
+}
+
+#greeting span.text:nth-child(15) {
+  animation-delay: 1.4s
+}
+
+#greeting span.text:nth-child(16) {
+  animation-delay: 1.5s
+}
+
+#greeting span.text:nth-child(17) {
+  animation-delay: 1.6s
+}
+
+#greeting span.text:nth-child(18) {
+  animation-delay: 1.7s
+}
+
+#greeting span.text:nth-child(19) {
+  animation-delay: 1.8s
+}
+
+#greeting span.text:nth-child(20) {
+  animation-delay: 1.9s
+}
+
+#greeting {
+  font-size: 80px;
+  font-weight: bolder;
+  color: #7b7e4eb4;
+  word-wrap: normal;
+}
+
+#greeting span {
+  display: table-cell;
+  animation: blink 1.5s ease-in infinite;
+}
+
+#from {
+  font-size: 30px;
+}
+
+#from,
+a {
+  color: white;
+}
+
+@keyframes blink {
+
+  0%,
+  100% {
+    color: #ffd700;
+    filter: blur(2px);
+    text-shadow: 0 0 10px #f9fc3e,
+      0 0 20px #d0ff00,
+      0 0 40px #f9fc3e,
+      0 0 80px #f9fc3e,
+      0 0 1200px #f9fc3e,
+      0 0 200px #f9fc3e,
+      0 0 300px #f9fc3e,
+      0 0 400px #f9fc3e;
+  }
+
+  5%,
+  95% {
+    color: rgb(247, 214, 30);
+    filter: blur(1px);
+    text-shadow: none;
   }
 }

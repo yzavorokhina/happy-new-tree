@@ -18,7 +18,6 @@ const triesLimit = 12;
 //const alphabet = 'АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ';
 const alphabet = 'абвгдеёжзийклмнопрстуфхцчшщъыьэюя';
 
-// TODO: auto test for check letters
 const answers = [
     "снегурочка",
     "морозко",
@@ -136,6 +135,32 @@ async function loadGameState() {
     }
 }
 
+function updateGreetings(inputText) {
+    const greeting = document.getElementById("greeting");
+    const letters = inputText.split('');
+
+    for (const letter of letters) {
+        const span = new Element('span');
+        span.setInnerText(letter);
+        console.log({ letter })
+        if (letter !== " ") {
+            span.addClasses('text');
+        } else {
+            span.addClasses('space');
+        }
+        greeting.appendChild(span.createDomElement());
+    }
+}
+
+function* showDecorationPartGenerator() {
+    for (let i = 0; i < gameElements.decoration.length; i++) {
+        gameElements.decoration[i].style.display = 'block';
+        yield;
+    }
+}
+
+let showDecorationPart = showDecorationPartGenerator();
+
 async function init() {
     await loadGameState();
     console.log({ state });
@@ -168,9 +193,8 @@ async function init() {
 
     // check if the game is finished
     if (statistics.totalSuccessScore >= totalBalls) {
-        // TODO: make animation for greeting text:
-        gameElements.topic.innerText = "Happy New Year 2026!";
-        gameElements.topic.classList.add("greeting");
+        updateGreetings("Happy New Year 2026!");
+        gameElements.topic.innerText = "";
         const newGameBtn = document.getElementById("newGameBtn");
         newGameBtn.style.display = 'block';
         
@@ -206,7 +230,7 @@ async function init() {
         button.innerText = alphabet[i];
 
         if (state.selectedLetters.indexOf(alphabet[i]) !== -1) {
-            button.classList.add('grey-letter');
+            button.classList.add('frozen-symbols');
             button.disabled = true;
             await checkLetter(alphabet[i], true);
         }
@@ -215,7 +239,7 @@ async function init() {
             await checkLetter(alphabet[i]);
 
             // stylization of pressed letters:
-            button.classList.add('grey-letter');
+            button.classList.add('frozen-symbols');
             button.disabled = true;
         }
 
@@ -303,7 +327,7 @@ async function init() {
                 pressedLetter = 'ж';
                 break;
 
-            // TODO: fix when pressed Э on ENG - switch the search on the page:    
+            // TODO: fix when pressed "Э" on ENG - switch the search on the page:    
             case 'Quote':
                 pressedLetter = 'э';
                 break;
@@ -343,22 +367,12 @@ async function init() {
 
         await checkLetter(pressedLetter);
 
-        // TODO: make selected btn colored because it is the new year atmos...
         const btnId = 'key' + alphabet.indexOf(pressedLetter);
         const button = document.getElementById(btnId);
-        button.classList.add('grey-letter');
+        button.classList.add('frozen-symbols');
         button.disabled = true;
     });
 }
-
-function* showDecorationPartGenerator() {
-    for (let i = 0; i < gameElements.decoration.length; i++) {
-        gameElements.decoration[i].style.display = 'block';
-        yield;
-    }
-}
-
-let showDecorationPart = showDecorationPartGenerator();
 
 async function checkLetter(letter, init = false) {
     console.log(letter);
@@ -407,9 +421,10 @@ function gameOver(result) {
     if (result) {
         gameOverElement.innerText = 'Прекрасно, ещё один шарик на ёлке!!';
         gameOverElement.classList.add('green-success');
+        showDecorationPart.next();
         clearGameState(result);
     } else {
-        gameOverElement.innerText = 'Попробуй ответить на другой вопрос';
+        gameOverElement.innerText = 'Попробуй ответить на другой вопрос..';
         gameOverElement.classList.add('red-fail');
         clearGameState(result);
     }
@@ -439,11 +454,11 @@ async function autoTest(run) {
             return;
         }
         
-        await delay(5000);
+        await delay(3000);
         console.log({ run, state, statistics });
         if (!state.currentQuest) {
             console.log({ wait: 3, state, statistics });
-            await delay(3000);
+            await delay(1000);
         }
 
         let loadState = state;
