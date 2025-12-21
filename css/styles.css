@@ -83,13 +83,14 @@ h1 {
 }
 
 .word-letter {
+  text-transform: uppercase;
   border-bottom: 2px solid rgb(255, 255, 255);
   display: flex;
   justify-content: center;
   align-items: flex-end;
   width: 30px;
   height: 35px;
-  font-size: 40px;
+  font-size: 35px;
   line-height: 30px;
   color: #ffffff;
 }
